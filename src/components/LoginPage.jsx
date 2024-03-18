@@ -29,18 +29,31 @@ function LoginPage() {
     // we wait for 1.2 seconds to simulate sending an API request
     // when the time is done, we simulate having received a response from the server that
     // contains the user + authtoken
-    setTimeout(() => {
-      // login success
-      const payload = {
-        user: formState,
-        authToken:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-      };
-      // pass user + authToken to login
-      login(payload.user, payload.authToken);
-      // reset form (redundant, because login redirects...)
-      setFormState({ ...DEFAULT_FORM_STATE });
-    }, 1200);
+    // setTimeout(() => {
+    //   // login success
+    //   const payload = {
+    //     user: formState,
+    //     authToken:
+    //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+    //   };
+    //   // pass user + authToken to login
+    //   login(payload.user, payload.authToken);
+    //   // reset form (redundant, because login redirects...)
+    //   setFormState({ ...DEFAULT_FORM_STATE });
+    // }, 1200);
+    fetch("http://localhost:4000/auth/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify({
+        username: formState.username,
+        password: formState.password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((json) => login(json.username, json.token));
   };
 
   // redirect to homepage if already logged in

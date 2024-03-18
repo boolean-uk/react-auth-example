@@ -3,9 +3,9 @@ import { AppShell, Group } from "@mantine/core";
 import { useLocation } from "react-router-dom";
 
 const links = [
-  { link: "/", label: "Home" },
-  { link: "/login", label: "Log In" },
-  { link: "/logout", label: "Log Out" },
+  { link: "/", label: "Books Home" },
+  { link: "/login", label: "Login" },
+  { link: "/logout", label: "Logout" },
 ];
 
 function Header() {
